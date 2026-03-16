@@ -5,7 +5,9 @@ import moon from "./assets/images/moon.png";
 import Nav from "./components/Nav/Nav";
 import Button from "./components/Button/Button";
 import artist from "./data/artist";
+import albums from "./albumsArr/albums";
 import ArtistTile from "./components/ArtistTile/ArtistTile";
+import AlbumTiles from "./components/AlbumTile/AlbumTiles";
 
 const App = () => {
   const user = {
@@ -27,6 +29,10 @@ const App = () => {
     greetingTime = "Evening!";
   }
 
+  const filteredAlbums = [...albums].filter((album)=>album.strArtistThumb).slice(0,9);
+
+  const highestRating = [...albums].sort((a,b)=>b.intScore - a.intScore).slice(0,9);
+
   return (
     <>
       <div className="app">
@@ -44,6 +50,17 @@ const App = () => {
         <section className="discover">
           <h2>Discover</h2>
           <ArtistTile imgSrc={artist.strArtistThumb} title={artist.strArtist} />
+        </section>
+        <section className="discography">
+          <h2 className="discography__heading">Discography</h2>
+
+          <div className="all-albums">
+            <AlbumTiles title="Albums" albumsArr={filteredAlbums} />
+          </div>
+
+          <div className="highest-rated">
+            <AlbumTiles title="Highest Rated" albumsArr={highestRating} />
+          </div>
         </section>
       </div>
     </>
